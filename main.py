@@ -11,8 +11,8 @@ def taylor(fx, c, n):
     px = f'{fx}'
     for i in range(n):
         fx_exp = fx_exp.diff(x)
-        dx.append(fx_exp / sp.factorial(i))
-        px += '+' + str(dx[-1])
+        dx.append(fx_exp)
+        px += '+' + str(dx[-1].subs('x', c)/sp.factorial(i))
         if str(dx[-1]) == '0':
             break
 
