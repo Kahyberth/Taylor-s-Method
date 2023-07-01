@@ -2,6 +2,7 @@ import sympy as sp
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
+from GUI import GUI
 
 def taylor(fx, c, n):
     x = sp.Symbol('x')
@@ -61,4 +62,6 @@ def graph(fx, c, n):
     # Mostrar la animación
     return plt.show()
 
-graph('4*x**5',1,5)
+
+def __init__():
+    GUI()
