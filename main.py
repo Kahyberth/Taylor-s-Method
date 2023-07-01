@@ -20,42 +20,45 @@ def taylor(fx, c, n):
 
     return f, len(dx)
 
-# Variables
-f_original = lambda x: -0.1*x**4-0.15*x**3-0.5*x**2-0.25*x+1.2
-f_taylor, n_terms = taylor('-0.1*x**4-0.15*x**3-0.5*x**2-0.25*x+1.2', 0, 5)  # Aumenta el número de términos
+def graph(fx, c, n):
+    # Variables
+    f_original = lambda x: eval(fx)  # Utilizar eval para evaluar la expresión como cadena
+    f_taylor, n_terms = taylor(fx, c, n)  # Aumenta el número de términos
 
-x_vals = np.linspace(-5, 5, 1000)  # Aumenta el número de puntos en el rango de x
-y_vals_original = f_original(x_vals)
+    x_vals = np.linspace(-5, 5, 1000)  # Aumenta el número de puntos en el rango de x
+    y_vals_original = f_original(x_vals)
 
-fig, ax = plt.subplots()
-line_original, = ax.plot(x_vals, y_vals_original, label='Función original')
-line_taylor, = ax.plot([], [], label='Aproximación de Taylor')
-ax.set_xlabel('x')
-ax.set_ylabel('f(x)')
-ax.set_title('Gráfico de la función')
-ax.legend()
-ax.grid(True)
+    fig, ax = plt.subplots()
+    line_original, = ax.plot(x_vals, y_vals_original, label='Función original')
+    line_taylor, = ax.plot([], [], label='Aproximación de Taylor')
+    ax.set_xlabel('x')
+    ax.set_ylabel('f(x)')
+    ax.set_title('Gráfico de la función')
+    ax.legend()
+    ax.grid(True)
 
-# Función de inicialización para la animación
-def init():
-    line_taylor.set_data([], [])  # Línea inicialmente vacía para la aproximación de Taylor
-    return line_taylor,
+    # Función de inicialización para la animación
+    def init():
+        line_taylor.set_data([], [])  # Línea inicialmente vacía para la aproximación de Taylor
+        return line_taylor,
 
-# Función de actualización para animar las líneas
-def update(frame):
-    t = frame / n_terms  # Tiempo normalizado en función del número de términos
-    x_range = np.linspace(-5, 5, 1000)  # Aumenta el número de puntos en el rango de x
-    y_vals_taylor = f_taylor(x_range)
-    x_vals_anim = x_range[:int(t * len(x_range))]  # Valores de x para animación en función del tiempo
-    y_vals_anim = y_vals_taylor[:int(t * len(x_range))]  # Valores de y para animación en función del tiempo
-    line_taylor.set_data(x_vals_anim, y_vals_anim)
-    return line_taylor,
+    # Función de actualización para animar las líneas
+    def update(frame):
+        t = frame / n_terms  # Tiempo normalizado en función del número de términos
+        x_range = np.linspace(-5, 5, 1000)  # Aumenta el número de puntos en el rango de x
+        y_vals_taylor = f_taylor(x_range)
+        x_vals_anim = x_range[:int(t * len(x_range))]  # Valores de x para animación en función del tiempo
+        y_vals_anim = y_vals_taylor[:int(t * len(x_range))]  # Valores de y para animación en función del tiempo
+        line_taylor.set_data(x_vals_anim, y_vals_anim)
+        return line_taylor,
 
-# Ajusta el número de fotogramas en función del número de términos para una animación más precisa
-frames = int(n_terms * 1.5)
+    # Ajusta el número de fotogramas en función del número de términos para una animación más precisa
+    frames = int(n_terms * 1.5)
 
-# Crear la animación
-animation = FuncAnimation(fig, update, frames=frames, init_func=init, blit=True, interval=100)
+    # Crear la animación
+    animation = FuncAnimation(fig, update, frames=frames, init_func=init, blit=True, interval=100)
 
-# Mostrar la animación
-plt.show()
+    # Mostrar la animación
+    plt.show()
+
+graph('4*x**5',1,5)
