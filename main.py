@@ -59,6 +59,6 @@ def graph(fx, c, n):
     animation = FuncAnimation(fig, update, frames=frames, init_func=init, blit=True, interval=100)
 
     # Mostrar la animación
-    plt.show()
+    return plt.show()
 
 graph('4*x**5',1,5)
