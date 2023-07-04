@@ -1,5 +1,5 @@
 import flet as ft
-from main import taylor,graph
+from main import taylor
 def main(page: ft.Page):
     page.window_center()
     page.window_maximizable = False
@@ -8,8 +8,7 @@ def main(page: ft.Page):
     page.title = "Método de Taylor"
     def button_clicked(e):
         t.value = f"Textboxes values are:  '{tb1.value}', '{tb2.value}, {tb3.value}'"
-        graph(tb1.value,int(tb2.value),int(tb3.value))
-
+        taylor(tb1.value, float(tb2.value), int(tb3.value))
 
 
     t = ft.Text()
